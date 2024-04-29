@@ -1,6 +1,9 @@
 package com.zerocoder.devsearch.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -22,14 +25,22 @@ public class Message {
     @JoinColumn(name = "recipient_id",nullable = false)
     private Profile receiver;
     @Column(name = "subject", nullable = false)
+    @NotNull(message = "Message subject is required")
+    @Size(min = 2, message = "Subject must be at least 2 characters long")
     private String subject;
     @Column(name = "body", nullable = false)
+    @NotNull(message = "Message body is required")
     private String body;
     @Column(name = "is_read")
     private Boolean is_read = false;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;
+    @PrePersist
+    protected void onCreate() {
+        created = new Date();
+    }
 
     public Message(Long message_id, String subject, String body) {
         this.message_id = message_id;

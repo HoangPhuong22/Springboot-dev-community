@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/main.html}"
+>
+<div layout:fragment="content" class="card">
+    <div class="card-body">
+        <form class="forms-sample" th:action="@{/admin/tags/add}" th:object="${tag}" method="POST">
+            <div class="form-group row">
+                <label for="exampleInputStatus" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="exampleInputStatus" name="name" th:field="*{name}" placeholder="Name">
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <a th:href="@{/admin/tags}" class="btn btn-dark">Cancel</a>
+        </form>
+    </div>
+</div>
+</html>

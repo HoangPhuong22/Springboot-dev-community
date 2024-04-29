@@ -1,6 +1,9 @@
 package com.zerocoder.devsearch.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +18,7 @@ public class Profile {
     private Long profile_id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", unique = true, nullable = false)
+    @JoinColumn(name = "user_id", unique = true)
     private User user;
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Skill> skills;
@@ -28,12 +31,19 @@ public class Profile {
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Message> receiver;
     @Column(name = "name", nullable = false)
+    @NotNull(message = "Name is required")
+    @Size(min = 2, message = "Name must be at least 2 characters")
     private String name;
     @Column(name = "headline", nullable = false)
+    @NotNull(message = "Headline is required")
+    @Size(min = 1, message = "Headline must be at least 1 character")
     private String headline;
     @Column(name = "bio", nullable = false)
+    @NotNull(message = "Bio is required")
+    @Size(min = 1, message = "Bio must be at least 1 character")
     private String bio;
     @Column(name = "address", nullable = false)
+    @NotNull(message = "Address is required")
     private String address;
     @Column(name = "profile_image")
     private String profile_image;
@@ -49,7 +59,12 @@ public class Profile {
     private String social_tiktok;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;
+    @PrePersist
+    protected void onCreate() {
+        created = new Date();
+    }
 
     public Profile() {
     }

@@ -1,6 +1,9 @@
 package com.zerocoder.devsearch.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,8 +32,12 @@ public class Project {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private List<Review> reviews;
     @Column(name = "title", nullable = false)
+    @NotNull(message = "Please provide a title")
+    @Size(min = 3, message = "Title must be at least 3 characters long")
     private String title;
     @Column(name = "description", nullable = false)
+    @NotNull(message = "Please provide a description")
+    @Size(min = 10, message = "Description must be at least 10 characters long")
     private String description;
     @Column(name = "project_image")
     private String project_image;
@@ -43,6 +50,8 @@ public class Project {
     @Column(name = "vote_total")
     private Long vote_total;
     @Column(name = "created")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date created;
     @PrePersist
     private void onCreate() {

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/main.html}"
+>
+<div layout:fragment="content" class="card">
+    <div class="card-body">
+        <form class="forms-sample" th:action="@{/admin/users/edit}" th:object="${user}" method="POST">
+            <input type="hidden" th:field="*{userId}">
+            <div class="form-group row">
+                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">First Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="firstName" th:field="*{firstName}" id="exampleInputUsername2" placeholder="First name">
+                    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></p>
+                </div>
+            </div>
+            <!-- Thêm trường Last Name -->
+            <div class="form-group row">
+                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Last Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="exampleInputEmail2" name="lastName" th:field="*{lastName}" placeholder="Last Name">
+                    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></p>
+                </div>
+            </div>
+            <!-- Thêm trường Email -->
+            <div class="form-group row">
+                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="exampleInputMobile" name="email" th:field="*{email}" placeholder="Email">
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></p>
+                </div>
+            </div>
+            <!-- Thêm trường User Name -->
+            <div class="form-group row">
+                <label for="exampleInput" class="col-sm-3 col-form-label">User Name</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="exampleInput" name="userName" th:field="*{userName}" placeholder="User name">
+                    <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="text-danger"></p>
+                </div>
+            </div>
+            <!-- Thêm trường Password -->
+            <div class="form-group row">
+                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="exampleInputPassword2" name="password" th:field="*{password}" placeholder="Password">
+                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></p>
+                </div>
+            </div>
+            <!-- Thêm trường Confirm Password -->
+            <div class="form-group row">
+                <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Re Password</label>
+                <div class="col-sm-9">
+                    <input type="password" class="form-control" id="exampleInputConfirmPassword2" name="confirmPassword" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputRoles" class="col-sm-3 col-form-label">Roles</label>
+                <div class="col-sm-9">
+                    <select class="js-example-basic-multiple" id="exampleInputRoles" name="rolesID" style="width:100%" multiple>
+                        <option th:each="role : ${allRoles}" th:value="${role.roleId}"
+                                th:text="${role.roleName}"
+                                th:selected="${user.roles != null and user.roles.contains(role)}"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="text-danger"></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="exampleInputStatus" class="col-sm-3 col-form-label">Status</label>
+                <div class="col-sm-9">
+                    <select class="js-example-basic-single" style="width:100%" id="exampleInputStatus" name="enable" th:field="*{enable}">
+                        <option value="true" th:selected="${user.enable == true}">Enable</option>
+                        <option value="false" th:selected="${user.enable == false}">Disable</option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('enable')}" th:errors="*{enable}" class="text-danger"></p>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <a th:href="@{/admin/users}" class="btn btn-dark">Cancel</a>
+        </form>
+    </div>
+</div>

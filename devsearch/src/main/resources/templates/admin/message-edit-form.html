@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/main.html}"
+>
+<div layout:fragment="content" class="card">
+    <div class="card-body">
+        <form class="forms-sample" th:action="@{/admin/messages/edit}" th:object="${message}" method="POST">
+            <input type="hidden" th:field="*{message_id}"/>
+            <input type="hidden" th:field="*{created}"/>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Sender</label>
+                <div class="col-sm-9">
+                    <select class="js-example-basic-single" style="width:100%"  name="sender" th:field="*{sender}">
+                        <option th:each="profile : ${profiles}" th:value="${profile.profile_id}"
+                                th:text="${profile.name}"
+                                th:selected="${profile.profile_id == message.sender.profile_id}"></option>
+                        ></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('sender')}" th:errors="*{sender}" class="text-danger"></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Recipient</label>
+                <div class="col-sm-9">
+                    <select class="js-example-basic-single" style="width:100%"  name="receiver" th:field="*{receiver}">
+                        <option th:each="profile : ${profiles}" th:value="${profile.profile_id}"
+                                th:text="${profile.name}"
+                                th:selected="${profile.profile_id == message.receiver.profile_id}">
+                        >
+                        </option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('receiver')}" th:errors="*{receiver}" class="text-danger"></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Subject</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="subject" th:field="*{subject}" placeholder="Subject">
+                    <p th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}" class="text-danger"></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Message</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" name="body" th:field="*{body}" placeholder="Message"></textarea>
+                    <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}" class="text-danger"></p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Is Read</label>
+                <div class="col-sm-9">
+                    <select class="js-example-basic-single" style="width:100%"  name="is_read" th:field="*{is_read}">
+                        <option value="true" th:text="Read" th:selected="${message.is_read} == true"></option>
+                        <option value="false" th:text="Unread" th:selected="${message.is_read} == false"></option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            <a th:href="@{/admin/reviews}" class="btn btn-dark">Cancel</a>
+        </form>
+    </div>
+</div>

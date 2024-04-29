@@ -82,6 +82,7 @@ CREATE TABLE REVIEW
     owner_id BIGINT NOT NULL,
     rating BIT NOT NULL,
     created DATETIME,
+    body TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
     FOREIGN KEY(owner_id) REFERENCES PROFILE(profile_id),
     FOREIGN KEY(project_id) REFERENCES PROJECT(project_id)
 );

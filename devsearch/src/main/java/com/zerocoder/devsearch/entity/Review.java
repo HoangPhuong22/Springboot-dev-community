@@ -1,6 +1,9 @@
 package com.zerocoder.devsearch.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -21,16 +24,28 @@ public class Review {
             CascadeType.DETACH}, fetch=FetchType.LAZY)
     @JoinColumn(name = "owner_id",nullable = false)
     private Profile profile;
-    @Column(name = "value", nullable = false)
+    @Column(name = "rating", nullable = false)
     private Boolean value;
+    @Column(name = "body", nullable = false)
+    @NotNull(message = "Review body is required.")
+    @Size(min = 1, message = "Review body is required.")
+    private String body;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date created;
+    @PrePersist
+    protected void onCreate() {
+        created = new Date();
+    }
     public Review() {
     }
 
-    public Review(Boolean value) {
+    public Review(Long review_id, Boolean value, String body, Date created) {
+        this.review_id = review_id;
         this.value = value;
+        this.body = body;
+        this.created = created;
     }
 
     public Long getReview_id() {
@@ -65,20 +80,19 @@ public class Review {
         this.value = value;
     }
 
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
     public Date getCreated() {
         return created;
     }
 
     public void setCreated(Date created) {
         this.created = created;
-    }
-
-    @Override
-    public String toString() {
-        return "Review{" +
-                "review_id=" + review_id +
-                ", value=" + value +
-                ", created=" + created +
-                '}';
     }
 }

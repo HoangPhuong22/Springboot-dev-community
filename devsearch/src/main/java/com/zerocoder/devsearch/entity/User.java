@@ -1,6 +1,9 @@
 package com.zerocoder.devsearch.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +26,28 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
     @Column(name = "username", unique = true, nullable = false)
+    @NotNull(message = "Username is required")
+    @Size(min = 1, message = "Username is required")
+    @Pattern(regexp = "^[\\p{L}0-9]*$", message = "Username must not contain spaces or special characters")
     private String userName;
     @Column(name = "password", nullable = false)
+    @Size(min = 6, message = "Passwords must be at least 6 characters")
     private String password;
     @Column(name = "email", unique = true, nullable = false)
+    @NotNull(message = "Email is required")
+    @Size(min = 1, message = "Email is required")
+    @Pattern(regexp = "^\\S+@\\S+\\.\\S+$", message = "Enter the correct email format")
     private String email;
     @Column(name = "first_name", nullable = false)
+    @NotNull(message = "First name is required")
+    @Size(min = 1, message = "First name is required")
     private String firstName;
     @Column(name = "last_name", nullable = false)
+    @NotNull(message = "Last name is required")
+    @Size(min = 1, message = "Last name is required")
     private String lastName;
     @Column(name = "enable", nullable = false)
-    private boolean enable;
+    private boolean enable = true;
     public User(){}
 
     public User(String userName, String password, String email, String firstName, String lastName) {
@@ -113,7 +127,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public boolean isEnable() {
+    public boolean getEnable() {
         return enable;
     }
 

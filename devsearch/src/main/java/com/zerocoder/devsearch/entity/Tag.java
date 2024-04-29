@@ -1,6 +1,8 @@
 package com.zerocoder.devsearch.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +15,9 @@ public class Tag {
     @Column(name = "tag_id")
     private Long tag_id;
     @Column(name = "name", nullable = false)
+    @NotNull(message = "Name is required")
+    @Size(min = 4, message = "Name must be at least 4 characters")
     private String name;
-    @Column(name = "description", nullable = false)
-    private String description;
     @ManyToMany(fetch=FetchType.LAZY, cascade = {CascadeType.PERSIST,
             CascadeType.MERGE, CascadeType.REFRESH,
             CascadeType.DETACH})
@@ -26,9 +28,10 @@ public class Tag {
 
     public Tag() {}
 
-    public Tag(String name, String description) {
+    public Tag(Long tag_id, String name, List<Project> projects) {
+        this.tag_id = tag_id;
         this.name = name;
-        this.description = description;
+        this.projects = projects;
     }
 
     public Long getTag_id() {
@@ -47,14 +50,6 @@ public class Tag {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public List<Project> getProjects() {
         return projects;
     }
@@ -62,19 +57,13 @@ public class Tag {
     public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
-    public void addProject(Project theProject){
-        if(projects == null){
-            projects = new ArrayList<>();
-        }
-        projects.add(theProject);
-    }
 
     @Override
     public String toString() {
         return "Tag{" +
                 "tag_id=" + tag_id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", projects=" + projects +
                 '}';
     }
 }
