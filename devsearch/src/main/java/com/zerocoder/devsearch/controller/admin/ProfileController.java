@@ -90,7 +90,7 @@ public class ProfileController {
         return "admin/profile-edit-form";
     }
     @PostMapping("/edit")
-public String editProfile(@Valid @ModelAttribute("profile") Profile theProfile,
+    public String editProfile(@Valid @ModelAttribute("profile") Profile theProfile,
                           BindingResult bindingResult,
                           @RequestParam("img") MultipartFile multipartFile,
                           Model theModel
@@ -115,6 +115,15 @@ public String editProfile(@Valid @ModelAttribute("profile") Profile theProfile,
     }
     // Get the managed Profile from the database
     Profile managedProfile = profileService.getProfile(theProfile.getProfile_id());
+    managedProfile.setName(theProfile.getName());
+    managedProfile.setHeadline(theProfile.getHeadline());
+    managedProfile.setBio(theProfile.getBio());
+    managedProfile.setAddress(theProfile.getAddress());
+    managedProfile.setSocial_github(theProfile.getSocial_github());
+    managedProfile.setSocial_facebook(theProfile.getSocial_facebook());
+    managedProfile.setSocial_tiktok(theProfile.getSocial_tiktok());
+    managedProfile.setSocial_twitter(theProfile.getSocial_twitter());
+    managedProfile.setSocial_youtube(theProfile.getSocial_youtube());
     String fileName = managedProfile.getProfile_image();
     String newFile = null;
     if(!multipartFile.isEmpty())

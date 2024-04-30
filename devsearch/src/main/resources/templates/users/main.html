@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html lang="en"
-      th:
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{/users/images/favicon.ico}" type="image/x-icon" />
+    <!-- Icon - IconMonster -->
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css}" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Mumble UI -->
+    <link rel="stylesheet" th:href="@{/users/uikit/styles/uikit.css}" />
+    <!-- Dev Search UI -->
+    <link rel="stylesheet" th:href="@{/users/styles/app.css}" />
+
+    <title>DevSearch - Connect with Developers!</title>
+
 </head>
 <body>
-
+    <div layout:insert="users/header :: header"></div>
+    <!-- Main Section -->
+    <main layout:fragment="content" class="home">
+    </main>
 </body>
 </html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+<div layout:fragment="content">
+    <main class="singleProject my-md">
+        <div class="container">
+            <div class="layout">
+                <div class="column column--1of3">
+                    <h3 class="singleProject__subtitle">Tools & Stacks</h3>
+                    <div class="singleProject__toolStack">
+                        <span class="tag tag--pill tag--sub tag--lg" th:each="tag: ${project.tag}">
+                            <small th:text="${tag.name}"></small>
+                        </span>
+                    </div>
+                    <a class="singleProject__liveLink" th:href="${project.demo_link}" target="_blank"><i class="fa-solid fa-link"></i>Source Code
+                    </a>
+                </div>
+                <div class="column column--2of3">
+                    <img class="singleProject__preview" th:src="@{'/media/projects/' + ${project.project_image}}" alt="portfolio thumbnail" />
+                    <a th:href="@{/profiles/{id}(id=${project.profile.profile_id})}" class="singleProject__developer" th:text="${project.profile.name}"></a>
+                    <h2 class="singleProject__title" th:text="${project.title}"></h2>
+                    <h3 class="singleProject__subtitle">About the Project</h3>
+                    <div class="singleProject__info">
+                        <p th:text="${project.description}"></p>
+                    </div>
+
+                    <div class="comments">
+                        <h3 class="singleProject__subtitle">Feedback</h3>
+                        <h5 class="project--rating" th:text="${project.vote_ratio} + '% ' + 'Postitive Feedback (' + ${project.vote_total} + ' votes)'"></h5>
+                        </h5>
+
+                        <form class="form" action="#" method="POST">
+                            <!-- Textarea -->
+                            <div class="form__field">
+                                <label for="formInput#textarea">Comments: </label>
+                                <textarea class="input input--textarea" name="message" id="formInput#textarea"
+                                          placeholder="Write your comments here..."></textarea>
+                            </div>
+                            <input class="btn btn--sub btn--lg" type="submit" value="Comments" />
+                        </form>
+                        <div class="commentList">
+                            <div class="comment" th:each="review: ${project.reviews}">
+                                <a th:href="@{/profiles/{id}(id=${review.profile.profile_id})}">
+                                    <img class="avatar avatar--md"
+                                         th:src="@{'/media/profiles/' + ${review.profile.profile_image}}" alt="user" />
+                                </a>
+                                <div class="comment__details">
+                                    <a th:href="@{/profiles/{id}(id=${review.profile.profile_id})}" class="comment__author" th:text="${review.profile.name}"></a>
+                                    <p class="comment__info" th:text="${review.body}">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</main>
+</div>

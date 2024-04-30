@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+>
+<div layout:fragment="content">
+    <section class="hero-section text-center">
+        <div class="container container--narrow">
+            <div class="hero-section__box">
+                <h2>CONNECT WITH <span>DEVELOPERS</span></h2>
+                <h2>FROM AROUND THE WORLD</h2>
+            </div>
+
+            <div class="hero-section__search">
+                <form class="form" action="#" method="get">
+                    <div class="form__field">
+                        <label for="formInput#search">Search Developers </label>
+                        <input class="input input--text" id="formInput#search" type="text" name="text"
+                               placeholder="Search by developer name" />
+                    </div>
+
+                    <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Search Result: DevList -->
+    <section class="devlist" >
+        <div class="container">
+            <div class="grid grid--three">
+                <div class="column card" th:each="profile : ${profiles}">
+                    <div class="dev">
+                        <a th:href="@{'/profiles/' + ${profile.profile_id}}" class="card__body">
+                            <div class="dev__profile">
+                                <img class="avatar avatar--md" th:src="@{'/media/profiles/' + ${profile.profile_image}}" alt="image" />
+                                <div class="dev__meta">
+                                    <h3 th:text="${profile.name}"></h3>
+                                    <h5 th:text="${profile.headline}"></h5>
+                                </div>
+                            </div>
+                            <p th:text="${profile.bio}"></p>
+                            <div class="dev__skills">
+                          <span class="tag tag--pill tag--main" th:each="skill : ${profile.skills}">
+                            <small th:text="${skill.name}"></small>
+                          </span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -63,6 +63,38 @@
                     </div>
                 </div>
             </div>
+            <!--            Social_Github-->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Github</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="social_github" th:field="*{social_github}" placeholder="Github">
+                    <p th:if="${#fields.hasErrors('social_github')}" th:errors="*{social_github}" class="text-danger"></p>
+                </div>
+            </div>
+            <!--            Social_Youtube-->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Youtube</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="social_youtube" th:field="*{social_youtube}" placeholder="Youtube">
+                    <p th:if="${#fields.hasErrors('social_youtube')}" th:errors="*{social_youtube}" class="text-danger"></p>
+                </div>
+            </div>
+            <!--            Social_Facebook-->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Facebook</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="social_facebook" th:field="*{social_facebook}" placeholder="Facebook">
+                    <p th:if="${#fields.hasErrors('social_facebook')}" th:errors="*{social_facebook}" class="text-danger"></p>
+                </div>
+            </div>
+            <!--            Social_Tiktok-->
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Tiktok</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="social_tiktok" th:field="*{social_tiktok}" placeholder="Tiktok">
+                    <p th:if="${#fields.hasErrors('social_tiktok')}" th:errors="*{social_tiktok}" class="text-danger"></p>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <a th:href="@{/admin/profiles}" class="btn btn-dark">Cancel</a>
         </form>

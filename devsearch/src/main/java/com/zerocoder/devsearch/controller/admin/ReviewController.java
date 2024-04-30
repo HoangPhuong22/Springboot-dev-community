@@ -63,7 +63,7 @@ public class ReviewController {
             ++total;
             if(r.getValue() == true) ++ratio;
         }
-        ratio = ratio / total;
+        ratio = ratio / total * 100;
         project.setVote_ratio(ratio);
         project.setVote_total(total);
         projectService.updateProject(project);
@@ -105,7 +105,7 @@ public class ReviewController {
             ++total;
             if(r.getValue() == true) ++ratio;
         }
-        ratio = ratio / total;
+        ratio = ratio / total * 100;
         project.setVote_ratio(ratio);
         project.setVote_total(total);
         projectService.updateProject(project);
@@ -125,6 +125,7 @@ public class ReviewController {
         ratio = ratio / total * 100;
         project.setVote_ratio(ratio);
         project.setVote_total(total);
+        System.out.println(ratio + " RATIO NHÉ CAC BAN");
         projectService.updateProject(project);
         reviewService.deleteReview(id);
         return "redirect:/admin/reviews";

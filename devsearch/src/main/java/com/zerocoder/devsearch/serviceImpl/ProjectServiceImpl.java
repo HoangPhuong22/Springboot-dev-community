@@ -43,6 +43,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public List<Project> getProjectAndProfileAndTag() {
+        return projectDAO.getProjectAndProfileAndTag();
+    }
+
+    @Override
     @Transactional
     public void updateProject(Project project) {
         projectDAO.updateProject(project);

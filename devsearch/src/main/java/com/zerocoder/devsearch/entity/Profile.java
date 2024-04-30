@@ -20,7 +20,11 @@ public class Profile {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", unique = true)
     private User user;
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE, CascadeType.DETACH,
+            CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinTable(name = "PROFILE_SKILL", joinColumns = @JoinColumn(name = "profile_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> skills;
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Project> projects;
@@ -104,7 +108,6 @@ public class Profile {
             skills = new ArrayList<>();
         }
         skills.add(tempSkill);
-        tempSkill.setProfile(this);
     }
 
     public List<Project> getProjects() {

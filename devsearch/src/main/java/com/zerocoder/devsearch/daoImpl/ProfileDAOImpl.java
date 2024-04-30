@@ -3,7 +3,9 @@ package com.zerocoder.devsearch.daoImpl;
 import com.zerocoder.devsearch.dao.ProfileDAO;
 import com.zerocoder.devsearch.entity.Profile;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,6 +31,14 @@ public class ProfileDAOImpl implements ProfileDAO {
     public List<Profile> getAllProfiles() {
         List<Profile> profiles = entityManager.createQuery("from Profile").getResultList();
         return profiles;
+    }
+
+    @Override
+    @EntityGraph(attributePaths = {"skills", "projects"})
+    public Profile getProfileAndSkillAndProject(Long id) {
+        TypedQuery<Profile> query = entityManager.createQuery("select p from Profile p where p.profile_id = :id", Profile.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 
     @Override

@@ -42,6 +42,12 @@ public class ProjectDAOImpl implements ProjectDAO {
     }
 
     @Override
+    public List<Project> getProjectAndProfileAndTag() {
+        TypedQuery<Project> query = entityManager.createQuery("select p from Project p left join fetch p.profile left join fetch p.tag", Project.class);
+        return query.getResultList();
+    }
+
+    @Override
     public void updateProject(Project project) {
         entityManager.merge(project);
     }

@@ -43,10 +43,16 @@ CREATE TABLE PROFILE (
 CREATE TABLE SKILL
 (
 	skill_id BIGINT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    owner_id BIGINT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    description TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    FOREIGN KEY (owner_id) REFERENCES PROFILE(profile_id)
+    description TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+);
+CREATE TABLE PROFILE_SKILL
+(
+	skill_id BIGINT,
+    profile_id BIGINT,
+    PRIMARY KEY(skill_id, profile_id),
+    FOREIGN KEY(skill_id) REFERENCES SKILL(skill_id),
+    FOREIGN KEY(profile_id) REFERENCES PROFILE(profile_id)
 );
 CREATE TABLE TAG
 (

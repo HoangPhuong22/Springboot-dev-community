@@ -41,6 +41,15 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
+    public Profile getProfileAndSkillAndProject(Long id) {
+        try {
+            return profileDAO.getProfileAndSkillAndProject(id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     @Transactional
     public void updateProfile(Profile profile) {
         profileDAO.updateProfile(profile);
