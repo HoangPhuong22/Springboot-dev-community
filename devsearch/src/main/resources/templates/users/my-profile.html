@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+>
+<main layout:fragment="content" class="settingsPage profile my-md">
+    <div class="container">
+        <div class="layout">
+            <div class="column column--1of3">
+                <div class="card text-center">
+                    <div class="card__body dev">
+                        <a class="tag tag--pill tag--main settings__btn" href="/profiles/edit"><i class="fa-solid fa-user-pen"></i> Edit Profile</a>
+                        <img class="avatar avatar--xl dev__avatar" th:src="@{'/media/profiles/' + ${profile.profile_image}}" />
+                        <h2 class="dev__name" th:text="${profile.name}"></h2>
+                        <p class="dev__title" th:text="${profile.headline}"></p>
+                        <p class="dev__location" th:text="${profile.address}"></p>
+                        <ul class="dev__social">
+                            <li th:if="${profile.social_github}">
+                                <a title="Github" th:href="${profile.social_github}" target="_blank"><i class="fa-brands fa-github-alt"></i></a>
+                            </li>
+                            <li th:if="${profile.social_youtube}">
+                                <a title="Youtube" th:href="${profile.social_youtube}" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                            </li>
+                            <li th:if="${profile.social_facebook}">
+                                <a title="Facebook" th:href="${profile.social_facebook}" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                            </li>
+                            <li th:if="${profile.social_twitter}">
+                                <a title="Twitter" th:href="${profile.social_twitter}" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                            </li>
+                            <li th:if="${profile.social_tiktok}">
+                                <a title="Tiktok" th:href="${profile.social_tiktok}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="column column--2of3">
+                <div class="devInfo">
+                    <h3 class="devInfo__title">About Me</h3>
+                    <p class="devInfo__about"th:text="${profile.bio}">
+                    </p>
+                </div>
+                <div class="settings">
+                    <h3 class="settings__title">Skills</h3>
+                    <a class="tag tag--pill tag--sub settings__btn tag--lg" th:href="@{/skills/add}"><i class="im im-plus"></i> Add Skill</a>
+                </div>
+
+                <table class="settings__table">
+                    <tr th:each="skill: ${profile.skills}">
+                        <td class="settings__tableInfo">
+                            <h4 th:text="${skill.name}"></h4>
+                            <p>
+                                <span th:text="${skill.description}"></span>
+                            </p>
+                        </td>
+                        <td class="settings__tableActions">
+                            <a class="tag tag--pill tag--main settings__btn" th:href="@{'/skills/edit/' + ${skill.skill_id}}"><i class="im im-edit"></i> Edit</a>
+                            <a class="tag tag--pill tag--main settings__btn" th:href="@{'/skills/delete/' + ${skill.skill_id}}"
+                               onclick="if (!confirm('Are you sure you want to delete this skill?')) {return false;}"
+                            ><i class="im im-x-mark-circle-o"></i>Delete</a>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="settings">
+                    <h3 class="settings__title">Projects</h3>
+                    <a class="tag tag--pill tag--sub settings__btn tag--lg" th:href="@{/projects/add}"><i class="im im-plus"></i> Add Project</a>
+                </div>
+
+                <table class="settings__table">
+                    <tr th:each="project: ${profile.projects}">
+                        <td class="settings__thumbnail">
+                            <a th:href="@{'/projects/' + ${project.project_id}}">
+                                <img th:src="@{'/media/projects/' + ${project.project_image}}" alt="project thumbnail" />
+                            </a>
+                        </td>
+                        <td class="settings__tableInfo">
+                            <a th:href="@{'/projects/' + ${project.project_id}}">
+                                <h4 th:text="${project.title}"></h4>
+                            </a>
+                            <p th:text="${project.description}"></p>
+                        </td>
+                        <td class="settings__tableActions">
+                            <a class="tag tag--pill tag--main settings__btn" th:href="@{'/projects/edit/' + ${project.project_id}}"><i class="im im-edit"></i> Edit</a>
+                            <a class="tag tag--pill tag--main settings__btn" th:href="@{'/projects/delete/' + ${project.project_id}}"
+                                 onclick="if (!confirm('Are you sure you want to delete this project?')) {return false;}"
+                            ><i class="im im-x-mark-circle-o"></i>Delete</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+</html>

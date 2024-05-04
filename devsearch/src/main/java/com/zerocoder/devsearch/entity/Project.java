@@ -46,9 +46,9 @@ public class Project {
     @Column(name = "source_code")
     private String source_code;
     @Column(name = "vote_ratio")
-    private Double vote_ratio;
+    private Double vote_ratio = 0D;
     @Column(name = "vote_total")
-    private Long vote_total;
+    private Long vote_total = 0L;
     @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -68,7 +68,22 @@ public class Project {
         this.vote_total = vote_total;
         this.created = created;
     }
-
+    public void updateVoteData(){
+        int total = 0; double ratio = 0;
+        if(reviews == null || reviews.size() == 0)
+        {
+            this.vote_total = 0L;
+            this.vote_ratio = 0D;
+            return;
+        }
+        for(Review r : reviews) {
+            ++total;
+            if(r.getValue() == true) ++ratio;
+        }
+        ratio = ratio / total * 100;
+        this.vote_total = (long) total;
+        this.vote_ratio = ratio;
+    }
     public Long getProject_id() {
         return project_id;
     }

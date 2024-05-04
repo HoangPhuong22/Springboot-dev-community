@@ -30,6 +30,18 @@ public class SkillDAOImpl implements SkillDAO {
     }
 
     @Override
+    public Skill getSkillByProfileId(Long profile_id, Long skill_id) {
+        Skill skill = entityManager.find(Skill.class, skill_id);
+        if (skill != null) {
+            boolean hasProfile = skill.getProfile().stream().anyMatch(profile -> profile.getProfile_id().equals(profile_id));
+            if (hasProfile) {
+                return skill;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public Skill getSkillById(Long id) {
         return entityManager.find(Skill.class, id);
     }

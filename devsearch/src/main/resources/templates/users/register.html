@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+>
+<div layout:fragment="content" class="auth" style="margin-top: 200px">
+    <div class="card">
+        <div class="auth__header text-center">
+            <a href="/">
+                <img th:src="@{/users/images/icon.svg}" alt="icon" />
+            </a>
+            <h3>Account SignUp</h3>
+            <p>Create a new developer account</p>
+        </div>
+
+        <form th:action="@{/register}" th:object="${user}" method="POST" class="form auth__form">
+            <!-- Input:Text -->
+            <div class="form__field">
+                <label for="formInput#text">User Name</label>
+                <input
+                        class="input input--text"
+                        id="formInput#text"
+                        type="text"
+                        name="userName"
+                        th:field="*{userName}"
+                        placeholder="e.g. Zero Coder"
+                />
+                <p style="color: red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
+            </div>
+
+            <!-- Input:Email -->
+            <div class="form__field">
+                <label for="formInput#email">Email Address: </label>
+                <input
+                        class="input input--email"
+                        id="formInput#email"
+                        type="email"
+                        name="email"
+                        th:field="*{email}"
+                        placeholder="e.g. user@domain.com"
+                />
+                <p style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+            </div>
+
+            <!-- Input:Password -->
+            <div class="form__field">
+                <label for="formInput#password">Password: </label>
+                <input
+                        class="input input--password"
+                        id="formInput#passowrd"
+                        type="password"
+                        name="password"
+                        th:field="*{password}"
+                        placeholder="••••••••"
+                />
+                <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+            </div>
+            <!-- Input:Password -->
+            <div class="form__field">
+                <label for="formInput#confirm-password">Confirm Password: </label>
+                <input
+                        class="input input--password"
+                        id="formInput#confirm-passowrd"
+                        type="password"
+                        name="confirm-password"
+                        placeholder="••••••••"
+                />
+            </div>
+            <!--  First Name -->
+            <div class="form__field">
+                <label for="formInput#text">First Name</label>
+                <input
+                        class="input input--text"
+                        id="formInput#text"
+                        type="text"
+                        name="firstName"
+                        th:field="*{firstName}"
+                        placeholder="e.g. Zero"
+                />
+                <p style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></p>
+            </div>
+            <!--  Last Name -->
+            <div class="form__field">
+                <label for="formInput#text">Last Name</label>
+                <input
+                        class="input input--text"
+                        id="formInput#text"
+                        type="text"
+                        name="lastName"
+                        th:field="*{lastName}"
+                        placeholder="e.g. Coder"
+                />
+                <p style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></p>
+            </div>
+            <div class="auth__actions">
+                <input class="btn btn--sub btn--lg" type="submit" value="Sign  In" />
+            </div>
+        </form>
+        <div class="auth__alternative">
+            <p>Already have an Account?</p>
+            <a href="/login">Log In</a>
+        </div>
+    </div>
+</div>

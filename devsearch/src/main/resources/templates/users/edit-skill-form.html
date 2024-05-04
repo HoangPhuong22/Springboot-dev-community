@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+>
+<div layout:fragment="content" >
+    <main class="formPage my-xl">
+        <div class="content-box">
+            <div class="formWrapper">
+                <a class="backButton" href="/profiles/myaccount"><i class="fa-solid fa-backward-step"></i></a>
+                <br>
+
+                <form class="form" method="POST" th:object="${skill}" th:action="@{/skills/edit}">
+                    <input type="hidden" th:field="*{skill_id}"/>
+                    <div class="form__field">
+                        <label for="formInput#text">Skill Name: </label>
+                        <input class="input input--text" id="formInput#text" type="text" name="name"
+                               placeholder="Enter skill name" th:field="*{name}"/>
+                        <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Skill Name Error</p>
+                    </div>
+                    <div class="form__field">
+                        <label for="formInput#textarea">Description: </label>
+                        <textarea th:field="*{description}" class="input input--textarea" name="description" id="formInput#textarea" placeholder="Write something awesome..."></textarea>
+                        <p style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</p>
+                    </div>
+                    <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

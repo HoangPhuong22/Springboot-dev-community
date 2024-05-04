@@ -7,7 +7,7 @@
 <!-- Header Section -->
 <header layout:fragment="header" class="header">
     <div class="container container--narrow">
-        <a th:href="@{/profile}" class="header__logo">
+        <a th:href="@{/}" class="header__logo">
             <img th:src="@{/users/images/logo.svg}" alt="DevSearch Logo" />
         </a>
         <nav class="header__nav">
@@ -19,8 +19,9 @@
             <ul class="header__menu">
                 <li class="header__menuItem"><a th:href="@{/profiles}">Developers</a></li>
                 <li class="header__menuItem"><a th:href="@{/projects}">Projects</a></li>
-                <li class="header__menuItem"><a href="inbox.html">Inbox</a></li>
-                <li class="header__menuItem" sec:authorize="isAuthenticated()"><a th:href="@{/profile}">My Account</a></li>
+                <li class="header__menuItem" sec:authorize="isAuthenticated()"><a th:href="@{/inbox}">Inbox</a></li>
+                <li class="header__menuItem" sec:authorize="isAuthenticated()"><a th:href="@{/profiles/myaccount}">My Account</a></li>
+                <li class="header__menuItem" sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">Admin</a></li>
                 <li class="header__menuItem" sec:authorize="isAnonymous()"><a href="/login" class="btn btn--sub">Login</a></li>
                 <li class="header__menuItem" sec:authorize="isAuthenticated()">
                     <a th:if="${#lists.contains(#authentication.authorities.![authority], 'ADMIN')}" th:href="@{/admin}">Admin</a>
@@ -30,7 +31,6 @@
                         <input type="submit" value="Logout" class="btn btn--sub" />
                     </form>
                 </li>
-                <li class="header__menuItem" sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}" class="btn btn--sub">Admin</a></li>
             </ul>
         </nav>
     </div>

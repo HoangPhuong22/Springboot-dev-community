@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+>
+<div layout:fragment="content" >
+    <main class="formPage my-xl">
+        <div class="content-box">
+            <div class="formWrapper">
+                <a class="backButton" href="/profiles/myaccount"><i class="fa-solid fa-backward-step"></i></a>
+                <br>
+
+                <form class="form" method="POST" th:object="${project}" th:action="@{/projects/add}" enctype="multipart/form-data">
+                    <div class="form__field">
+                        <label for="formInput#text">Title: </label>
+                        <input class="input input--text" id="formInput#text" type="text" name="title"
+                               placeholder="Enter title" th:field="*{title}"/>
+                        <p style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</p>
+                    </div>
+
+                    <div class="form__field">
+                        <label for="formInput#textarea">Description: </label>
+                        <textarea th:field="*{description}" class="input input--textarea" name="description" id="formInput#textarea" placeholder="Write something awesome..."></textarea>
+                        <p style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</p>
+                    </div>
+
+                    <div class="form__field">
+                        <label for="formInput#text">Project Image: </label>
+                        <input class="input input--file" id="imgInput" type="file" name="img"
+                               placeholder="Upload project image" accept="image/*"/>
+                        <p></p>
+                        <img id="previewImg" style="width: 100px; height: 100px; object-fit:cover;"/>
+                        <p style="color: red" th:if="${#fields.hasErrors('project_image')}" th:errors="*{project_image}">Project Image Error</p>
+                    </div>
+                    <div class="form__field">
+                        <label for="formInput#text">Demo Link: </label>
+                        <input class="input input--text" id="formInput#text" type="text" name="demo_link"
+                               placeholder="Enter demo link" th:field="*{demo_link}"/>
+                        <p style="color: red" th:if="${#fields.hasErrors('demo_link')}" th:errors="*{demo_link}">Demo Link Error</p>
+                    </div>
+                    <div class="form__field">
+                        <label for="formInput#text">Source Code: </label>
+                        <input class="input input--text" id="formInput#text" type="text" name="source_code"
+                               placeholder="Enter source code" th:field="*{source_code}"/>
+                        <p style="color: red" th:if="${#fields.hasErrors('source_code')}" th:errors="*{source_code}">Source Code Error</p>
+                    </div>
+                    <div class="form__field form__field--checkbox">
+                        <p>Tag: </p>
+                        <div th:each="tag: ${tags}">
+                            <input
+                                    class="input input--checkbox"
+                                    id="formInput#checkbox-01"
+                                    type="checkbox"
+                                    th:value="${tag.tag_id}"
+                                    name="tagId"
+                            />
+                            <label for="formInput#checkbox-01" th:text="${tag.name}"></label>
+                        </div>
+                        <p style="color: red" th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}">Tag Error</p>
+                    </div>
+                    <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

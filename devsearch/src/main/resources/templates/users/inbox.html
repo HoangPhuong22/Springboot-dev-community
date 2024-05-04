@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+>
+<!-- Main Section -->
+<main layout:fragment="content" class="inbox my-xl">
+    <div class="content-box">
+        <h3 class="inbox__title">New Messages(<span th:text="${messageCount}"></span>)</h3>
+        <ul class="messages">
+            <li th:each="message : ${messages}" th:class="${message.is_read ? 'message' : 'message message--unread'}">
+                <a th:href="@{'/inbox/view/' + ${message.message_id}}">
+                    <span class="message__author" th:text="${message.sender.name}"></span>
+                    <span class="message__subject" th:text="${message.subject}"></span>
+                    <span class="message__date" th:text="${#dates.format(message.created, 'HH:mm dd/MM/yyyy')}"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</main>

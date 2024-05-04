@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+>
+<main layout:fragment="content" class="formPage my-xl">
+    <div class="content-box">
+        <div class="formWrapper">
+            <a class="backButton" href="/profiles/myaccount"><i class="fa-solid fa-backward-step"></i></a>
+            <br>
+
+            <form class="form" method="POST" th:object="${profile}" th:action="@{/profiles/edit}" enctype="multipart/form-data">
+                <input type="hidden" th:field="*{profile_id}"/>
+                <input type="hidden" th:field="*{created}"/>
+                <div class="form__field">
+                    <label for="formInput#text">Name: </label>
+                    <input class="input input--text" id="formInput#text" type="text" name="name"
+                           placeholder="Enter name" th:field="*{name}"/>
+                    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+                </div>
+                <div class="form__field">
+                    <label for="formInput#text">Headline: </label>
+                    <input class="input input--text" id="formInput#text" type="text" name="headline"
+                           placeholder="Enter headline" th:field="*{headline}"/>
+                    <p style="color: red" th:if="${#fields.hasErrors('headline')}" th:errors="*{headline}">Headline Error</p>
+                </div>
+                <div class="form__field">
+                    <label for="formInput#text">Bio: </label>
+                    <textarea class="input input--text" id="formInput#text" name="bio"
+                              placeholder="Enter bio" th:field="*{bio}" rows="10" cols="50"></textarea>
+                    <p style="color: red" th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}">Bio Error</p>
+                </div>
+                <div class="form__field">
+                    <label for="formInput#text">Address: </label>
+                    <input class="input input--text" id="formInput#text" type="text" name="address"
+                           placeholder="Enter address" th:field="*{address}"/>
+                    <p style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address Error</p>
+                </div>
+                <div class="form__field">
+                    <label for="formInput#text">Profile Image: </label>
+                    <input class="input input--file" id="imgInput" type="file" name="profileIMG"
+                           placeholder="Upload profile image" accept="image/*"/>
+                    <br>
+                    <img id="previewImg" th:src="@{'/media/profiles/' + ${profile.profile_image}}" style="width: 100px; height: 100px; object-fit:cover;"/>
+                    <p style="color: red" th:if="${#fields.hasErrors('profile_image')}" th:errors="*{profile_image}">Profile Image Error</p>
+                </div>
+                <div class="form__field">
+                    <label for="formInput#text">Github: </label>
+                    <input class="input input--text" id="formInput#text" type="text" name="social_github"
+                           placeholder="Enter github" th:field="*{social_github}"/>
+                    <p style="color: red" th:if="${#fields.hasErrors('social_github')}" th:errors="*{social_github}">Github Error</p>
+                </div>
+                <div class="form__field">
+                    <label for="formInput#text">Youtube: </label>
+                    <input class="input input--text" id="formInput#text" type="text" name="social_youtube"
+                           placeholder="Enter youtube" th:field="*{social_youtube}"/>
+                    <p style="color: red" th:if="${#fields.hasErrors('social_youtube')}" th:errors="*{social_youtube}">Youtube Error</p>
+                </div>
+                <div class="form__field">
+                    <label for="formInput#text">Facebook: </label>
+                    <input class="input input--text" id="formInput#text" type="text" name="social_facebook"
+                           placeholder="Enter facebook" th:field="*{social_facebook}"/>
+                    <p style="color: red" th:if="${#fields.hasErrors('social_facebook')}" th:errors="*{social_facebook}">Facebook Error</p>
+                </div>
+                <div class="form__field">
+                    <label for="formInput#text">Twitter: </label>
+                    <input class="input input--text" id="formInput#text" type="text" name="social_twitter"
+                           placeholder="Enter twitter" th:field="*{social_twitter}"/>
+                    <p style="color: red" th:if="${#fields.hasErrors('social_twitter')}" th:errors="*{social_twitter}">Twitter Error</p>
+                </div>
+                <div class="form__field">
+                    <label for="formInput#text">Tiktok: </label>
+                    <input class="input input--text" id="formInput#text" type="text" name="social_tiktok"
+                           placeholder="Enter tiktok" th:field="*{social_tiktok}"/>
+                    <p style="color: red" th:if="${#fields.hasErrors('social_tiktok')}" th:errors="*{social_tiktok}">Tiktok Error</p>
+                </div>
+                <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+</main>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+>
+<main layout:fragment="content" class="messagePage my-xl">
+    <div class="content-box">
+        <div class="message">
+            <a class="backButton" href="/inbox"><i class="fa-solid fa-square-caret-left"></i></a>
+            <h4 class="message__subject" th:text="${message.subject}"></h4>
+            <a th:href="@{'/profiles/' + ${message.sender.profile_id}}" class="message__author" th:text="${message.sender.name}"></a>
+            <p class="message__date" th:text="${#dates.format(message.created, 'HH:mm dd/MM/yyyy')}"></p>
+            <div class="message__body">
+                <p th:text="${message.body}"></p>
+            </div>
+        </div>
+    </div>
+</main>

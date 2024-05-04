@@ -32,7 +32,7 @@
                                     <a title="Tiktok" th:href="${profile.social_tiktok}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn--sub btn--lg">Send Message </a>
+                            <a th:href="@{'/inbox/add/'+${profile.profile_id}}" class="btn btn--sub btn--lg">Send Message </a>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,9 @@
                                             <h3 class="project__title" th:text="${project.title}"></h3>
                                             <p><a class="project__author" th:href="@{/profiles/{id}(id=${profile.profile_id})}" th:text="'By ' + ${profile.name}"></a></p>
                                             <p class="project--rating">
-                                                <span style="font-weight: bold;" th:text="${project.vote_ratio} + ' %' + 'Postitive Feedback (' + ${project.vote_total} + 'Votes)'"></span>
+                                                <span th:if="${project.vote_total > 1}" style="font-weight: bold;" th:text="${T(java.lang.Math).round(project.vote_ratio)} + ' % Positive Feedback (' + ${project.vote_total} + ' Votes)'"></span>
+                                                <span th:if="${project.vote_total == 1}" style="font-weight: bold;" th:text="${T(java.lang.Math).round(project.vote_ratio)} + ' % Positive Feedback (' + ${project.vote_total} + ' Vote)'"></span>
+                                                <span th:if="${project.vote_total == 0}" style="font-weight: bold;" th:text="'No Feedback Yet'"></span>
                                             </p>
                                             <div class="project__tags">
                                                 <span class="tag tag--pill tag--main" th:each="tag: ${project.tag}">

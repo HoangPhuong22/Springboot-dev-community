@@ -6,6 +6,7 @@ import com.zerocoder.devsearch.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Type;
@@ -44,6 +45,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    @EntityGraph(attributePaths = {"profile"})
     public User getUserByUserName(String userName) {
         TypedQuery<User> query = entityManager.createQuery("from User where userName =: userName", User.class);
         query.setParameter("userName", userName);

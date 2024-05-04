@@ -56,16 +56,8 @@ public class ReviewController {
             }
             return "admin/review-add-form";
         }
-        Project project = theReview.getProject();
-        long total = 0;
-        double ratio = 0;
-        for(Review r : reviewService.getAllReviews()) {
-            ++total;
-            if(r.getValue() == true) ++ratio;
-        }
-        ratio = ratio / total * 100;
-        project.setVote_ratio(ratio);
-        project.setVote_total(total);
+        Project project = projectService.getProjectById(theReview.getProject().getProject_id());
+        project.updateVoteData();
         projectService.updateProject(project);
         reviewService.saveReview(theReview);
         return "redirect:/admin/reviews";
@@ -98,36 +90,20 @@ public class ReviewController {
             return "admin/review-edit-form";
         }
 
-        Project project = theReview.getProject();
-        long total = 0;
-        double ratio = 0;
-        for(Review r : reviewService.getAllReviews()) {
-            ++total;
-            if(r.getValue() == true) ++ratio;
-        }
-        ratio = ratio / total * 100;
-        project.setVote_ratio(ratio);
-        project.setVote_total(total);
+        reviewService.updateReview(theReview);
+        Project project = projectService.getProjectById(theReview.getProject().getProject_id());
+        project.updateVoteData();
         projectService.updateProject(project);
 
-        reviewService.updateReview(theReview);
         return "redirect:/admin/reviews";
     }
     @GetMapping("delete/{id}")
     public String deleteReview(@PathVariable Long id) {
-        Project project = reviewService.getReview(id).getProject();
-        long total = 0;
-        double ratio = 0;
-        for(Review r : reviewService.getAllReviews()) {
-            ++total;
-            if(r.getValue() == true) ++ratio;
-        }
-        ratio = ratio / total * 100;
-        project.setVote_ratio(ratio);
-        project.setVote_total(total);
-        System.out.println(ratio + " RATIO NHÉ CAC BAN");
-        projectService.updateProject(project);
+        Review review = reviewService.getReview(id);
         reviewService.deleteReview(id);
+        Project project = projectService.getProjectById(review.getProject().getProject_id());
+        project.updateVoteData();
+        projectService.updateProject(project);
         return "redirect:/admin/reviews";
     }
 }

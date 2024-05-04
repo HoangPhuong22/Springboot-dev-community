@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{users/main}">
+>
+<div layout:fragment="content" >
+    <main class="formPage my-xl">
+        <div class="content-box">
+            <div class="formWrapper">
+                <a class="backButton" href="/profiles/myaccount"><i class="fa-solid fa-backward-step"></i></a>
+                <br>
+
+                <form class="form" method="POST" th:object="${message}" th:action="@{'/inbox/add/' + ${receiverId}}">
+                    <div class="form__field">
+                        <label>Subject: </label>
+                        <input class="input input--text" type="text" name="subject" th:field="*{subject}" placeholder="Enter subject" />
+                        <p style="color: red" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}">Subject Error</p>
+                    </div>
+                    <div class="form__field">
+                        <label>Message: </label>
+                        <textarea th:field="*{body}" class="input input--textarea" name="body" placeholder="Write something awesome..."></textarea>
+                        <p style="color: red" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Message Error</p>
+                    </div>
+                    <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+</html>

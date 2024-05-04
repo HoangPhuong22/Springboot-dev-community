@@ -9,5 +9,6 @@ public interface MessageDAO {
     public Message getMessage(Long theId);
     public void deleteMessage(Long theId);
     public List<Message> getAllMessages();
+    public List<Message> getReceivedMessages(Long id);
     public void updateMessage(Message theMessage);
 }

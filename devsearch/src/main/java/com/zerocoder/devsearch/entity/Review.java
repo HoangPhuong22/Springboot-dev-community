@@ -28,7 +28,7 @@ public class Review {
     private Boolean value;
     @Column(name = "body", nullable = false)
     @NotNull(message = "Review body is required.")
-    @Size(min = 1, message = "Review body is required.")
+    @Size(min = 10, message = "Review body must be at least 10 characters long.")
     private String body;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created")

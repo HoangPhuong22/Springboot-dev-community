@@ -28,18 +28,33 @@
 
                     <div class="comments">
                         <h3 class="singleProject__subtitle">Feedback</h3>
-                        <h5 class="project--rating" th:text="${project.vote_ratio} + '% ' + 'Postitive Feedback (' + ${project.vote_total} + ' votes)'"></h5>
+                        <p class="project-rating" th:if="${project.vote_total > 1}" style="font-weight: bold;" th:text="${T(java.lang.Math).round(project.vote_ratio)} + ' % Positive Feedback (' + ${project.vote_total} + ' Votes)'"></p>
+                        <p class="project-rating" th:if="${project.vote_total == 1}" style="font-weight: bold;" th:text="${T(java.lang.Math).round(project.vote_ratio)} + ' % Positive Feedback (' + ${project.vote_total} + ' Vote)'"></p>
+                        <p class="project-rating" th:if="${project.vote_total == 0}" style="font-weight: bold;" th:text="'No Feedback Yet'"></p>
                         </h5>
 
-                        <form class="form" action="#" method="POST">
+                        <form th:if="${ok == 1}" class="form" th:action="@{'/review/add/' + ${project.project_id}}" th:object="${review}" method="POST">
                             <!-- Textarea -->
+                            <p class="form__error" th:if="${#fields.hasErrors('profile')}" th:errors="*{profile}"></p>
+                            <label>Rating: </label>
+                            <select class="input input--select" th:field="*{value}">
+                                <option value="0">Down vote</option>
+                                <option value="1">Up vote</option>
+                            </select>
                             <div class="form__field">
                                 <label for="formInput#textarea">Comments: </label>
-                                <textarea class="input input--textarea" name="message" id="formInput#textarea"
+                                <textarea class="input input--textarea" th:field="*{body}" id="formInput#textarea"
                                           placeholder="Write your comments here..."></textarea>
+                                <p class="form__error" th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></p>
                             </div>
                             <input class="btn btn--sub btn--lg" type="submit" value="Comments" />
                         </form>
+                        <p th:if="${ok == 0}" class="alert alert--warning">
+                            You have already rated it, you can't rate it anymore =))
+                        </p>
+                        <p th:if="${ok == 2}" class = "alert alert--error">
+                            You cannot evaluate your project
+                        </p>
                         <div class="commentList">
                             <div class="comment" th:each="review: ${project.reviews}">
                                 <a th:href="@{/profiles/{id}(id=${review.profile.profile_id})}">
@@ -57,6 +72,5 @@
                 </div>
             </div>
         </div>
-</div>
-</main>
+    </main>
 </div>

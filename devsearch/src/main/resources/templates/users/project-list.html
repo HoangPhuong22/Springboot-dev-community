@@ -14,8 +14,8 @@
                 <form class="form" action="#" method="get">
                     <div class="form__field">
                         <label for="formInput#search">Search By Projects </label>
-                        <input class="input input--text" id="formInput#search" type="text" name="text"
-                               placeholder="Search by Project Title" />
+                        <input class="input input--text" id="formInput#search" type="text" name="keyword" th:value="${keyword}"
+                               placeholder="Search by Project" />
                     </div>
 
                     <input class="btn btn--sub btn--lg" type="submit" value="Search" />
@@ -35,7 +35,9 @@
                                 <h3 class="project__title" th:text="${project.title}"></h3>
                                 <p><a class="project__author" th:text="'By ' + ${project.profile.name}" href=""></a></p>
                                 <p class="project--rating">
-                                    <span style="font-weight: bold;" th:text="${project.vote_ratio} + '% ' + 'Postitive Feedback (' + ${project.vote_total} + ' votes)'"></span>
+                                    <span th:if="${project.vote_total > 1}" style="font-weight: bold;" th:text="${T(java.lang.Math).round(project.vote_ratio)} + ' % Positive Feedback (' + ${project.vote_total} + ' Votes)'"></span>
+                                    <span th:if="${project.vote_total == 1}" style="font-weight: bold;" th:text="${T(java.lang.Math).round(project.vote_ratio)} + ' % Positive Feedback (' + ${project.vote_total} + ' Vote)'"></span>
+                                    <span th:if="${project.vote_total == 0}" style="font-weight: bold;" th:text="'No Feedback Yet'"></span>
                                 </p>
                                 <div class="project__tags">
                                     <span th:each="tag: ${project.tag}" class="tag tag--pill tag--main">
@@ -49,4 +51,21 @@
             </div>
         </div>
     </section>
+    <div class="pagination" th:if="${totalPages > 1}">
+        <ul class="container">
+            <li>
+                <a th:if="${page > 1}" th:href="@{'?page=' + (${page} - 1) + '&keyword=' + ${keyword}}"
+                   th:class="${page > 1 ? 'btn' : 'btn btn--disabled'}">&#10094; Prev</a>
+            </li>
+            <li th:each="pageNumber : ${pages}">
+                <a th:href="@{'?page=' + ${pageNumber} + '&keyword=' + ${keyword}}"
+                   th:classappend="${pageNumber == page ? 'btn btn--sub' : 'btn'}"
+                   th:text="${pageNumber}"></a>
+            </li>
+            <li>
+                <a th:if="${page < totalPages}" th:href="@{'?page=' + (${page} + 1) + '&keyword=' + ${keyword}}"
+                   th:class="${page < totalPages ? 'btn' : 'btn btn--disabled'}">Next &#10095;</a>
+            </li>
+        </ul>
+    </div>
 </div>

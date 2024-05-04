@@ -3,6 +3,7 @@ package com.zerocoder.devsearch.serviceImpl;
 import com.zerocoder.devsearch.dao.ProjectDAO;
 import com.zerocoder.devsearch.entity.Project;
 import com.zerocoder.devsearch.service.ProjectService;
+import com.zerocoder.devsearch.utils.SearchProject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,8 +44,18 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Project getProjectByProfileId(Long profile_id, Long project_id) {
+        return projectDAO.getProjectByProfileId(profile_id, project_id);
+    }
+
+    @Override
     public List<Project> getProjectAndProfileAndTag() {
         return projectDAO.getProjectAndProfileAndTag();
+    }
+
+    @Override
+    public SearchProject searchProject(String keyword, int page, int size) {
+        return projectDAO.searchProject(keyword, page, size);
     }
 
     @Override

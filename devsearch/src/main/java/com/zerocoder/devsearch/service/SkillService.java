@@ -9,5 +9,6 @@ public interface SkillService {
     public void deleteSkill(Long id);
     public void updateSkill(Skill skill);
     public Skill getSkillById(Long id);
+    public Skill getSkillByProfileId(Long profile_id, Long skill_id);
     public List<Skill> getAllSkills();
 }

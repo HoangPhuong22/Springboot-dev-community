@@ -230,7 +230,14 @@ public class Profile {
     }
 
     public void setSocial_github(String social_github) {
-        this.social_github = social_github;
+        if(social_github != null && social_github.length() > 0)
+        {
+            this.social_github = social_github;
+        }
+        else
+        {
+            this.social_github = null;
+        }
     }
 
     public String getSocial_youtube() {
@@ -238,7 +245,14 @@ public class Profile {
     }
 
     public void setSocial_youtube(String social_youtube) {
-        this.social_youtube = social_youtube;
+        if(social_youtube != null && social_youtube.length() > 0)
+        {
+            this.social_youtube = social_youtube;
+        }
+        else
+        {
+            this.social_youtube = null;
+        }
     }
 
     public String getSocial_facebook() {
@@ -246,7 +260,14 @@ public class Profile {
     }
 
     public void setSocial_facebook(String social_facebook) {
-        this.social_facebook = social_facebook;
+        if (social_facebook != null && social_facebook.length() > 0)
+        {
+            this.social_facebook = social_facebook;
+        }
+        else
+        {
+            this.social_facebook = null;
+        }
     }
 
     public String getSocial_twitter() {
@@ -254,7 +275,14 @@ public class Profile {
     }
 
     public void setSocial_twitter(String social_twitter) {
-        this.social_twitter = social_twitter;
+        if(social_twitter != null && social_twitter.length() > 0)
+        {
+            this.social_twitter = social_twitter;
+        }
+        else
+        {
+            this.social_twitter = null;
+        }
     }
 
     public String getSocial_tiktok() {
@@ -262,7 +290,14 @@ public class Profile {
     }
 
     public void setSocial_tiktok(String social_tiktok) {
-        this.social_tiktok = social_tiktok;
+        if(social_tiktok != null && social_tiktok.length() > 0)
+        {
+            this.social_tiktok = social_tiktok;
+        }
+        else
+        {
+            this.social_tiktok = null;
+        }
     }
 
     public Date getCreated() {

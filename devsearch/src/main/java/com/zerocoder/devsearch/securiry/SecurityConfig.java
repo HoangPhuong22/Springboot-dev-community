@@ -19,12 +19,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
                 configurer
-                        .requestMatchers("/media/**").permitAll()
-                        .requestMatchers("/users/**").permitAll()
-                        .requestMatchers("/profiles/**").permitAll()
-                        .requestMatchers("/projects/**").permitAll()
+                        .requestMatchers("/", "/media/**", "/users/**", "/profiles/**", "/projects/**", "/register").permitAll()
+                        .requestMatchers("/inbox/**","/myaccount/**", "/projects/add/**", "/projects/edit/**", "/projects/delete/**", "profiles/edit").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-                        .requestMatchers("/projects/**", "/profiles/**", "/myaccount/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated())
                         .formLogin(form ->
                                 form
@@ -37,7 +34,7 @@ public class SecurityConfig {
                                 logout
                                         .logoutUrl("/logout")
                                         .permitAll()
-                                        .logoutSuccessUrl("/login")
+                                        .logoutSuccessUrl("/profiles")
                         );
         return http.build();
     }

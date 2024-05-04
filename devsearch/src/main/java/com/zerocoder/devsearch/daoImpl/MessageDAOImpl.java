@@ -41,6 +41,13 @@ public class MessageDAOImpl implements MessageDAO {
     }
 
     @Override
+    public List<Message> getReceivedMessages(Long id) {
+        TypedQuery<Message> query = entityManager.createQuery("from Message m left join fetch m.sender join fetch m.receiver r where r.profile_id=:profileId", Message.class);
+        query.setParameter("profileId", id);
+        return query.getResultList();
+    }
+
+    @Override
     public void updateMessage(Message theMessage) {
         entityManager.merge(theMessage);
     }

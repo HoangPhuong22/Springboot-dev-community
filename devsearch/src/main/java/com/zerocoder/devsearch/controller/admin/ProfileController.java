@@ -132,7 +132,8 @@ public class ProfileController {
         {
             String uploadDir = "src/main/resources/static/media/profiles";
             newFile = FileUploadUtils.saveFile(uploadDir, multipartFile);
-            FileUploadUtils.deleteFile("src/main/resources/static/media/profiles", fileName);
+            if(fileName != null && !fileName.equals("default_avatar.jpg"))
+                FileUploadUtils.deleteFile("src/main/resources/static/media/profiles", fileName);
         }
         catch (IOException e) {
             theModel.addAttribute("users", userService.getAllUsers());
@@ -151,7 +152,8 @@ public class ProfileController {
     public String deleteProfile(@PathVariable("id") Long id)
     {
         String fileName = profileService.getProfile(id).getProfile_image();
-        FileUploadUtils.deleteFile("src/main/resources/static/media/profiles", fileName);
+        if(fileName != null && !fileName.equals("default_avatar.jpg"))
+            FileUploadUtils.deleteFile("src/main/resources/static/media/profiles", fileName);
         profileService.deleteProfile(id);
         return "redirect:/admin/profiles";
     }

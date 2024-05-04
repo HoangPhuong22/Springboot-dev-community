@@ -37,6 +37,11 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
+    public Skill getSkillByProfileId(Long profile_id, Long skill_id) {
+        return skillDAO.getSkillByProfileId(profile_id, skill_id);
+    }
+
+    @Override
     public List<Skill> getAllSkills() {
         return skillDAO.getAllSkills();
     }

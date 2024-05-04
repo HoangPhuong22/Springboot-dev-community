@@ -13,11 +13,11 @@
             </div>
 
             <div class="hero-section__search">
-                <form class="form" action="#" method="get">
+                <form class="form" action="/profiles" method="GET">
                     <div class="form__field">
                         <label for="formInput#search">Search Developers </label>
-                        <input class="input input--text" id="formInput#search" type="text" name="text"
-                               placeholder="Search by developer name" />
+                        <input class="input input--text" id="formInput#search" type="text" name="keyword"
+                               placeholder="Search by developer" th:value="${keyword}" />
                     </div>
 
                     <input class="btn btn--sub btn--lg" type="submit" value="Search" />
@@ -39,7 +39,10 @@
                                     <h5 th:text="${profile.headline}"></h5>
                                 </div>
                             </div>
-                            <p th:text="${profile.bio}"></p>
+                            <div class="dev__location" th:if="${profile.address}">
+                                <i class="fa-solid fa-location-dot"></i> <span th:text="${profile.address}"></span>
+                            </div>
+                            <p class="dev__info" th:text="${profile.bio}"></p>
                             <div class="dev__skills">
                           <span class="tag tag--pill tag--main" th:each="skill : ${profile.skills}">
                             <small th:text="${skill.name}"></small>
@@ -51,4 +54,22 @@
             </div>
         </div>
     </section>
+    <div class="pagination" th:if="${totalPages > 1}">
+        <ul class="container">
+            <li>
+                <a th:if="${page > 1}" th:href="@{'?page=' + (${page} - 1) + '&keyword=' + ${keyword}}"
+                   th:class="${page > 1 ? 'btn' : 'btn btn--disabled'}">&#10094; Prev</a>
+            </li>
+            <li th:each="pageNumber : ${pages}">
+                <a th:href="@{'?page=' + ${pageNumber} + '&keyword=' + ${keyword}}"
+                   th:classappend="${pageNumber == page ? 'btn btn--sub' : 'btn'}"
+                   th:text="${pageNumber}"></a>
+            </li>
+            <li>
+                <a th:if="${page < totalPages}" th:href="@{'?page=' + (${page} + 1) + '&keyword=' + ${keyword}}"
+                   th:class="${page < totalPages ? 'btn' : 'btn btn--disabled'}">Next &#10095;</a>
+            </li>
+        </ul>
+    </div>
+
 </div>

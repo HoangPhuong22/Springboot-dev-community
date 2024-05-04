@@ -3,6 +3,7 @@ package com.zerocoder.devsearch.serviceImpl;
 import com.zerocoder.devsearch.dao.ProfileDAO;
 import com.zerocoder.devsearch.entity.Profile;
 import com.zerocoder.devsearch.service.ProfileService;
+import com.zerocoder.devsearch.utils.SearchProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,11 @@ public class ProfileServiceImpl implements ProfileService {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public SearchProfile searchProfile(String keyword, int page, int size) {
+        return profileDAO.searchProfile(keyword, page, size);
     }
 
     @Override

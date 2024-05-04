@@ -36,6 +36,18 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public List<Message> getReceivedMessages(Long id) {
+        try
+        {
+            return messageDAO.getReceivedMessages(id);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+    @Override
     @Transactional
     public void updateMessage(Message theMessage) {
         messageDAO.updateMessage(theMessage);
