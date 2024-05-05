@@ -91,6 +91,13 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User findUserByEmail(String email) {
+        TypedQuery<User> query = entityManager.createQuery("from User where email =: email", User.class);
+        query.setParameter("email", email);
+        return query.getSingleResult();
+    }
+
+    @Override
     public void deleteUser(Long id) {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);

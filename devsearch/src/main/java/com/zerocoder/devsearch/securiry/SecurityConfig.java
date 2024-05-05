@@ -19,7 +19,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(configurer ->
                 configurer
-                        .requestMatchers("/", "/media/**", "/users/**", "/profiles/**", "/projects/**", "/register").permitAll()
+                        .requestMatchers("/","/reset-password/**", "/media/**", "/users/**", "/profiles/**", "/projects/**", "/register", "/change-password/**").permitAll()
                         .requestMatchers("/inbox/**","/myaccount/**", "/projects/add/**", "/projects/edit/**", "/projects/delete/**", "profiles/edit").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                         .anyRequest().authenticated())
@@ -27,6 +27,7 @@ public class SecurityConfig {
                                 form
                                         .loginPage("/login")
                                         .loginProcessingUrl("/authenticate")
+                                        .defaultSuccessUrl("/profiles/myaccount")
                                         .permitAll()
 
                         )

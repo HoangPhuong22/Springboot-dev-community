@@ -15,6 +15,7 @@
         </div>
 
         <form th:action="@{/authenticate}" method="POST" class="form auth__form">
+            <p th:if="${message}" th:text="${message}" style="color: green; font-weight: bold;"></p>
             <!-- Input:Email -->
             <div class="form__field">
                 <label for="formInput#text">Username: </label>
@@ -43,7 +44,7 @@
             </div>
             <div class="auth__actions">
                 <input class="btn btn--sub btn--lg" type="submit" value="Log In" />
-                <a href="forgetpassword.html">Forget Password?</a>
+                <a href="/reset-password">Forget Password?</a>
             </div>
         </form>
         <div class="auth__alternative">

@@ -94,6 +94,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByEmail(String email) {
+        try
+        {
+            return userDAO.findUserByEmail(email);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+
+    @Override
     @Transactional
     public void deleteUser(Long id) {
         userDAO.deleteUser(id);
