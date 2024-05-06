@@ -14,7 +14,7 @@
 	<name>devsearch</name>
 	<description>Project devsearch</description>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
