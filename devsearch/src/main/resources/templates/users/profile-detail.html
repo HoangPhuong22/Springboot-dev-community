@@ -14,6 +14,7 @@
                             <img class="avatar avatar--xl" th:src="@{'/media/profiles/' + ${profile.profile_image}}"/>
                             <h2 class="dev__name" th:text="${profile.name}"></h2>
                             <p class="dev__title" th:text="${profile.headline}"></p>
+                            <h6 th:text="${'Join: '+ #dates.format(profile.created, 'dd MMM yyyy')}" style="font-size: 12px; color: #777;"></h6>
                             <p class="dev__location" th:text="${profile.address}"></p>
                             <ul class="dev__social">
                                 <li th:if="${profile.social_github}">

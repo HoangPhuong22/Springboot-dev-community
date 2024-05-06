@@ -76,8 +76,7 @@ public class UserController {
     {
         User checkUsername = userService.checkUserByUserName(user.getUserName(), user.getUserId());
         User checkEmail = userService.checkUserByEmail(user.getEmail(), user.getUserId());
-        String confirmPassword = request.getParameter("confirmPassword");
-        if(theBindingResult.hasErrors() || checkUsername != null || checkEmail != null || !user.getPassword().equals(confirmPassword))
+        if(theBindingResult.hasErrors() || checkUsername != null || checkEmail != null)
         {
             String[] roles = request.getParameterValues("rolesID");
             if(roles != null)
@@ -93,8 +92,6 @@ public class UserController {
             theModel.addAttribute("allRoles", allRoles);
             if(checkEmail != null)
                 theBindingResult.rejectValue("email", "error.user", "Email already exists");
-            if(!user.getPassword().equals(confirmPassword))
-                theBindingResult.rejectValue("password", "error.user", "Password and Confirm Password must be same");
             return "admin/user-edit-form";
         }
         String[] roles = request.getParameterValues("rolesID");

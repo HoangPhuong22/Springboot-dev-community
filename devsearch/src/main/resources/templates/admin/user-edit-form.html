@@ -8,6 +8,7 @@
     <div class="card-body">
         <form class="forms-sample" th:action="@{/admin/users/edit}" th:object="${user}" method="POST">
             <input type="hidden" th:field="*{userId}">
+            <input type="hidden" th:field="*{password}">
             <div class="form-group row">
                 <label for="exampleInputUsername2" class="col-sm-3 col-form-label">First Name</label>
                 <div class="col-sm-9">
@@ -37,21 +38,6 @@
                 <div class="col-sm-9">
                     <input type="text" class="form-control" id="exampleInput" name="userName" th:field="*{userName}" placeholder="User name">
                     <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="text-danger"></p>
-                </div>
-            </div>
-            <!-- Thêm trường Password -->
-            <div class="form-group row">
-                <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Password</label>
-                <div class="col-sm-9">
-                    <input type="password" class="form-control" id="exampleInputPassword2" name="password" th:field="*{password}" placeholder="Password">
-                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></p>
-                </div>
-            </div>
-            <!-- Thêm trường Confirm Password -->
-            <div class="form-group row">
-                <label for="exampleInputConfirmPassword2" class="col-sm-3 col-form-label">Re Password</label>
-                <div class="col-sm-9">
-                    <input type="password" class="form-control" id="exampleInputConfirmPassword2" name="confirmPassword" placeholder="Password">
                 </div>
             </div>
             <div class="form-group row">

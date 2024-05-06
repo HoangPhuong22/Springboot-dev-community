@@ -93,8 +93,19 @@ public class AuthController {
         user.setEnable(true);
         user.addRoles(role);
         userService.saveUser(user);
-        emailService.sendSimpleMessage(user.getEmail(), "Welcome to DevSearch", "You have successfully registered to DevSearch");
-        return "redirect:/login";
+        String text = "Hello " + user.getFirstName() + " " + user.getLastName() + ",\n" +
+                "User Name: " + user.getUserName() + "\n" +
+                "You have successfully registered to DevSearch.\n"+
+                "We are excited to have you on board.\n"+
+                "Login link: http://localhost:8080/login\n"+
+                "Please login to your account to start exploring.\n"+
+                "If you have any questions, please feel free to contact us.\n"+
+                "We are here to help you.\n"+
+                "Thank you for joining us.\n"+
+                "DevSearch";
+        emailService.sendSimpleMessage(user.getEmail(), "Welcome to DevSearch", text);
+        theModel.addAttribute("message", "Registration successful, please login to continue");
+        return "users/login";
     }
     @GetMapping("/reset-password")
     public String resetPassword() {
@@ -118,7 +129,9 @@ public class AuthController {
                 "Please click the link below to reset your password.\n" +
                 "Link expires in 60 second, if you do not reset your password within 60 second, you will have to request a new link.\n" +
                 "http://localhost:8080/change-password?id=" + user.getUserId() + "&token=" + token + "\n" +
-                "If you did not request a password reset, please ignore this email.";
+                "If you did not request a password reset, please ignore this email.\n"+
+                "Thank you\n" +
+                "DevSearch";
         emailService.sendSimpleMessage(user.getEmail(), "Password Reset Request", text);
         theModel.addAttribute("message", "Password reset link has been sent to your email");
         return "users/reset-password";

@@ -11,7 +11,7 @@
             </div>
 
             <div class="hero-section__search">
-                <form class="form" action="#" method="get">
+                <form class="form form-ajax-project" action="/projects" method="get">
                     <div class="form__field">
                         <label for="formInput#search">Search By Projects </label>
                         <input class="input input--text" id="formInput#search" type="text" name="keyword" th:value="${keyword}"
@@ -51,20 +51,20 @@
             </div>
         </div>
     </section>
-    <div class="pagination" th:if="${totalPages > 1}">
-        <ul class="container">
+    <div class="pagination pagination-project">
+        <ul class="container" th:if="${totalPages > 1}">
             <li>
                 <a th:if="${page > 1}" th:href="@{'?page=' + (${page} - 1) + '&keyword=' + ${keyword}}"
-                   th:class="${page > 1 ? 'btn' : 'btn btn--disabled'}">&#10094; Prev</a>
+                   th:class="${page > 1 ? 'btn' : 'btn btn--disabled'}" th:attr="data-page=(${page} - 1)">&#10094; Prev</a>
             </li>
             <li th:each="pageNumber : ${pages}">
                 <a th:href="@{'?page=' + ${pageNumber} + '&keyword=' + ${keyword}}"
                    th:classappend="${pageNumber == page ? 'btn btn--sub' : 'btn'}"
-                   th:text="${pageNumber}"></a>
+                   th:text="${pageNumber}" th:attr="data-page=${pageNumber}"></a>
             </li>
             <li>
                 <a th:if="${page < totalPages}" th:href="@{'?page=' + (${page} + 1) + '&keyword=' + ${keyword}}"
-                   th:class="${page < totalPages ? 'btn' : 'btn btn--disabled'}">Next &#10095;</a>
+                   th:class="${page < totalPages ? 'btn' : 'btn btn--disabled'}" th:attr="data-page=(${page} + 1)">Next &#10095;</a>
             </li>
         </ul>
     </div>
