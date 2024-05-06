@@ -52,6 +52,9 @@
                         <p th:if="${ok == 0}" class="alert alert--warning">
                             You have already rated it, you can't rate it anymore =))
                         </p>
+                        <p th:if="${ok == 3}" class="alert alert-error">
+                            You login to evaluate the project
+                        </p>
                         <p th:if="${ok == 2}" class = "alert alert--error">
                             You cannot evaluate your project
                         </p>

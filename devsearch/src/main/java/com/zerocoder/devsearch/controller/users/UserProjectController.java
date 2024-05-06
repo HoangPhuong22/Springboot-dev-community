@@ -74,20 +74,27 @@ public class UserProjectController {
     @GetMapping("/{id}")
     public String projectDetails(@PathVariable("id") Long id, Model theModel, Authentication authentication)
     {
-        String userName = authentication.getName();
-        User user = userService.getUserByUserName(userName);
-        Profile profile = user.getProfile();
-        Project project = projectService.getProjectById(id);
         int ok = 1;
-        for(Review r : reviewService.getAllReviews()) {
-            if(r.getProfile().getProfile_id() == profile.getProfile_id() &&
-                    r.getProject().getProject_id() == project.getProject_id()){
-                ok = 0;
-                break;
+        Project project = projectService.getProjectById(id);
+        try
+        {
+            String userName = authentication.getName();
+            User user = userService.getUserByUserName(userName);
+            Profile profile = user.getProfile();
+            for(Review r : reviewService.getAllReviews()) {
+                if(r.getProfile().getProfile_id() == profile.getProfile_id() &&
+                        r.getProject().getProject_id() == project.getProject_id()){
+                    ok = 0;
+                    break;
+                }
             }
+            if(project.getProfile().getProfile_id() == profile.getProfile_id())
+                ok = 2;
         }
-        if(project.getProfile().getProfile_id() == profile.getProfile_id())
-            ok = 2;
+        catch (Exception e)
+        {
+            ok = 3;
+        }
         theModel.addAttribute("project", project);
         theModel.addAttribute("review", new Review());
         theModel.addAttribute("ok", ok);
