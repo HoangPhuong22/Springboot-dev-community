@@ -33,7 +33,7 @@
                                     <a title="Tiktok" th:href="${profile.social_tiktok}" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
                                 </li>
                             </ul>
-                            <a th:href="@{'/inbox/add/'+${profile.profile_id}}" class="btn btn--sub btn--lg">Send Message </a>
+                            <a sec:authorize="isAuthenticated()" th:href="@{'/inbox/add/'+${profile.profile_id}}" class="btn btn--sub btn--lg">Send Message </a>
                         </div>
                     </div>
                 </div>
