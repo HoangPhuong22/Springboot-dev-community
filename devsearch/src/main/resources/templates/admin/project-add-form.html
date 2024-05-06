@@ -62,8 +62,9 @@
                     <label for="exampleInputStatus" class="col-sm-3 col-form-label">Tags</label>
                     <div class="col-sm-9">
                         <select class="js-example-basic-multiple" id="exampleInputRoles" name="tage" style="width:100%" multiple>
-                            <option th:each="tag : ${tags}" th:value="${tag.tag_id}" th:text="${tag.name}">
-                            </option>
+                            <div th:each="tag : ${tags}">
+                                <option th:value="${tag.tag_id}" th:text="${tag.name}"></option>
+                            </div>
                         </select>
                     </div>
                 </div>
