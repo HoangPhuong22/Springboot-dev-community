@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
@@ -48,6 +51,11 @@ public class Message {
         this.body = body;
     }
     public Message() {
+    }
+    public long getMinutesSinceCreated() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime created = LocalDateTime.ofInstant(getCreated().toInstant(), ZoneId.systemDefault());
+        return Duration.between(created, now).toMinutes();
     }
 
     public Long getMessage_id() {

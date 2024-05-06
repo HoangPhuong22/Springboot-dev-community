@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "PROFILE")
@@ -84,6 +85,12 @@ public class Profile {
         this.social_facebook = social_facebook;
         this.social_twitter = social_twitter;
         this.social_tiktok = social_tiktok;
+    }
+    public List<Message> getRecentMessages() {
+        return receiver.stream()
+                .sorted((m1, m2) -> m2.getCreated().compareTo(m1.getCreated())) // Sắp xếp theo thời gian tạo, từ mới nhất đến cũ nhất
+                .limit(5) // Lấy 5 tin nhắn đầu tiên
+                .collect(Collectors.toList());
     }
 
     public Long getProfile_id() {

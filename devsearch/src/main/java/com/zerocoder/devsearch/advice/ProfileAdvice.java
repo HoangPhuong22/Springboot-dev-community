@@ -28,7 +28,6 @@ public class ProfileAdvice {
             {
                 String username = authentication.getName();
                 User user = userService.getUserByUserName(username);
-                System.out.println("Dan choi do");
                 return profileService.getProfile(user.getProfile().getProfile_id());
             }
             catch (Exception e)
@@ -39,5 +38,4 @@ public class ProfileAdvice {
         }
         return null;
     }
-
 }
