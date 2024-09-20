@@ -3,7 +3,7 @@ $(document).ready(function() {
     $('.form-ajax-project').submit(function(event) {
         event.preventDefault();
         var keyword = $('.input.input--text').val();
-        getPage(1, keyword);
+        getPageProject(1, keyword);
     });
 
     // Gửi yêu cầu AJAX khi người dùng nhấp vào các nút phân trang
